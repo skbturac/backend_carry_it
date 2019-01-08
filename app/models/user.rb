@@ -4,7 +4,3 @@ class User < ApplicationRecord
   has_many :packages, :through :services
   has_many :services
 end
-  # belongs_to :sender, class_name: "User"
-  # belongs_to :carrier, class_name: "User"
-  # belongs_to :packages
-  
