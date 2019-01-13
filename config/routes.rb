@@ -2,19 +2,29 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
 
+      resources :users
+
       resources :users, only: [:create]
+
       post '/login', to: 'auth#create'
       get '/profile', to: 'users#profile'
 
-      resources :package, only: [:index, :create, :show, :update, :destroy] do
-        post 'package', to: 'packages#add_package'
-        delete 'package', to: 'packages#remove_package'
-      end
-      resources :service, only: [:index, :create, :show, :update, :destroy] do
-        post 'service', to: 'services#add_service'
-        delete 'service', to: 'services#remove_service'
-      end
-      
+
+
+      resources :packages
+
+      # resources :package, only: [:index, :create, :show, :update, :destroy] do
+      #   post 'package', to: 'packages#add_package'
+      #   delete 'package', to: 'packages#remove_package'
+      # end
+
+      resources :services
+
+      # resources :service, only: [:index, :create, :show, :update, :destroy] do
+      #   post 'service', to: 'services#add_service'
+      #   delete 'service', to: 'services#remove_service'
+      # end
+
     end
   end
 end
