@@ -6,4 +6,8 @@ class User < ApplicationRecord
   has_many :service_receiver, class_name: "Service", foreign_key: "receiver_id"
   has_many :service_carrier, class_name: "Service", foreign_key: "carrier_id"
   has_many :packages, through: :services
+
+  def full_name
+    @first_name + @last_name
+  end
 end

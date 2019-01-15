@@ -1,6 +1,5 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
-  before_action :find_user, only: [:show, :edit, :update]
 
   def index
     @users = User.all
@@ -29,6 +28,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
+    # byebug
     @user.update(user_params)
     if @user.save
       render json: @user, status: :accepted
@@ -40,7 +40,7 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :password, :bio, :avatar, :first_name, :last_name, :email_address, :phone_number, :service_id, :package_id, :sender_id, :carrier_id)
+    params.require(:user).permit(:username, :password, :bio, :avatar, :first_name, :last_name, :email_address, :home_address ,:phone_number, :service_id, :package_id, :sender_id, :carrier_id)
   end
 
   def find_user
