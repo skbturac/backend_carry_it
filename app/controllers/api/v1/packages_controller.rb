@@ -1,4 +1,5 @@
 class Api::V1::PackagesController < ApplicationController
+  skip_before_action :authorized, only: [:index]
   before_action :find_package, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -8,6 +9,11 @@ class Api::V1::PackagesController < ApplicationController
 
   def show
     render json: @package, status: :accepted
+  end
+
+  def user_packages
+    @user_packages = current_user.packages
+    render json: @user_packages, status: :ok
   end
 
   def create
@@ -35,14 +41,14 @@ class Api::V1::PackagesController < ApplicationController
     if @package.delete
       render body: nil, status: :no_content
     else
-      render json: { message: "Playlist not found" }, status: :not_found
+      render json: { message: "Package not found" }, status: :not_found
     end
   end
 
   private
 
   def package_params
-    params.permit(:sender_id, :carrier_id, :service_id, :weight, :height, :lenght, :width, :price, :description, :destintion_address, :destintion_zipcode, :image)
+    params.require(:user).permit(:weight, :height, :length, :description, :image, :delivery_date)
   end
 
   def find_package

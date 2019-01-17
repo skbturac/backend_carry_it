@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_15_161305) do
+ActiveRecord::Schema.define(version: 2019_01_16_162153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,13 @@ ActiveRecord::Schema.define(version: 2019_01_15_161305) do
     t.integer "length"
     t.string "description"
     t.string "image"
+    t.bigint "sender_id"
+    t.bigint "receiver_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "delivery_date"
+    t.index ["receiver_id"], name: "index_packages_on_receiver_id"
+    t.index ["sender_id"], name: "index_packages_on_sender_id"
   end
 
   create_table "services", force: :cascade do |t|
@@ -31,14 +36,10 @@ ActiveRecord::Schema.define(version: 2019_01_15_161305) do
     t.string "destination_address"
     t.integer "destination_zipcode"
     t.integer "package_id"
-    t.bigint "sender_id"
     t.bigint "carrier_id"
-    t.bigint "receiver_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["carrier_id"], name: "index_services_on_carrier_id"
-    t.index ["receiver_id"], name: "index_services_on_receiver_id"
-    t.index ["sender_id"], name: "index_services_on_sender_id"
   end
 
   create_table "users", force: :cascade do |t|

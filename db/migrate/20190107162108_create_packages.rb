@@ -6,6 +6,8 @@ class CreatePackages < ActiveRecord::Migration[5.2]
       t.integer :length
       t.string :description
       t.string :image
+      t.references :sender #packages ... outgoing ... sending
+      t.references :receiver #incoming_packages
 
       t.timestamps
     end

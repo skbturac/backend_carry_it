@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
 
       resources :packages
+      delete 'package/delete', to: 'packages#destroy'
+      get '/user_packages', to: 'packages#user_packages'
+
 
       # resources :package, only: [:index, :create, :show, :update, :destroy] do
       #   post 'package', to: 'packages#add_package'

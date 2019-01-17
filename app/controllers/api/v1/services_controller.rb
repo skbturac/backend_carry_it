@@ -42,7 +42,7 @@ class Api::V1::ServicesController < ApplicationController
   private
 
   def service_params
-    params.permit(:status)
+    params.permit(:status, :price, :destination_address, :destination_zipcode, :package_id, :sender_id, :carrier_id, :receiver_id)
   end
 
   def find_service
