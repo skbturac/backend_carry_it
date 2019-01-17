@@ -17,8 +17,12 @@ class Api::V1::PackagesController < ApplicationController
   end
 
   def create
-    @package = Package.create(package_params)
-    if @package.valid?
+    @package = Package.new(package_params)
+    @sender_id = current_user.id
+    @package.sender_id = @sender_id
+    @receiver = User.find_by(username: params[:user][:receiver_id])
+    @package.receiver_id = @receiver.id
+    if @package.save && @package.valid?
       render json: @package, status: :created
     else
       render json: { errors: @package.errors.full_messages }, status: :unprocessible_entity
@@ -48,7 +52,7 @@ class Api::V1::PackagesController < ApplicationController
   private
 
   def package_params
-    params.require(:user).permit(:weight, :height, :length, :description, :image, :delivery_date)
+    params.require(:user).permit(:weight, :height, :length, :description, :image, :delivery_date, :sender_id, :receiver_id)
   end
 
   def find_package
