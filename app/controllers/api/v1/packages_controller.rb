@@ -32,6 +32,7 @@ class Api::V1::PackagesController < ApplicationController
   def edit
   end
 
+
   def update
     @package.update(package_params)
     if @package.save
