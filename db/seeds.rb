@@ -16,3 +16,5 @@ jeff = User.create(username: "je", password: "123", first_name: "Jeff", last_nam
 p1 = Package.create(sender_id: sam.id, receiver_id: laura.id, weight: 5, height: 6, length: 10, description: "a letter")
 
 p2 = Package.create(sender_id: laura.id, receiver_id: jeff.id, weight: 10, height: 10, length: 10, description: "a box")
+
+# s1 = Service.create(status: "Incomplete", price: 20, destination_address: "231 E 32St., New York, NY 10013", package_id: 1, carrier_id: 1)

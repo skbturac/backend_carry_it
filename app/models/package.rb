@@ -4,4 +4,4 @@ class Package < ApplicationRecord
   belongs_to :receiver, class_name: "User"
   has_one :service
 end
-# belongs_to :user (which users)
+ 

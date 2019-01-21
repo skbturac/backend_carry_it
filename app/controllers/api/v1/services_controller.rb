@@ -10,10 +10,19 @@ class Api::V1::ServicesController < ApplicationController
     render json: @service, status: :accepted
   end
 
-  def create
+  def user_services
     byebug
-    @service = Service.create(service_params)
-    if @service.valid?
+    # @user_services = current_user.packages[0].service
+    # render json: @user_services, status: :ok
+    @user_services = Services.all.where(carrier_id: current_user.id)
+    render json: @user_services
+  end
+
+  def create
+    @service = Service.new(service_params)
+    @carrier_id = current_user.id
+    @service.carrier_id = @carrier_id
+    if @service.save && @service.valid?
       render json: @service, status: :created
     else
       render json: { errors: @service.errors.full_messages }, status: :unprocessible_entity
@@ -43,7 +52,7 @@ class Api::V1::ServicesController < ApplicationController
   private
 
   def service_params
-    params.permit(:status, :price, :destination_address, :destination_zipcode, :package_id, :sender_id, :carrier_id, :receiver_id)
+    params.require(:service).permit(:status, :price, :destination_address, :package_id, :carrier_id)
   end
 
   def find_service

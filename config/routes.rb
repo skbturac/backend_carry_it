@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       # end
 
       resources :services
+      get '/user_services', to: 'services#user_services'
 
       # resources :service, only: [:index, :create, :show, :update, :destroy] do
       #   post 'service', to: 'services#add_service'
