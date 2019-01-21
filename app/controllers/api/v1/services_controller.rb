@@ -11,6 +11,7 @@ class Api::V1::ServicesController < ApplicationController
   end
 
   def create
+    byebug
     @service = Service.create(service_params)
     if @service.valid?
       render json: @service, status: :created
