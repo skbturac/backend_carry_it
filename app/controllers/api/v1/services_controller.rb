@@ -1,5 +1,5 @@
 class Api::V1::ServicesController < ApplicationController
-  before_action :find_service, only: [:show, :edit, :update]
+  before_action :find_service, only: [:show, :edit, :update, :destroy]
 
   def index
     @services = Service.all
@@ -11,11 +11,8 @@ class Api::V1::ServicesController < ApplicationController
   end
 
   def user_services
-    byebug
-    # @user_services = current_user.packages[0].service
-    # render json: @user_services, status: :ok
-    @user_services = Services.all.where(carrier_id: current_user.id)
-    render json: @user_services
+    @user_services = Service.all.where(carrier_id: current_user.id)
+    render json: @user_services, status: :ok
   end
 
   def create

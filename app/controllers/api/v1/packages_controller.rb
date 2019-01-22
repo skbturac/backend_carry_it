@@ -16,6 +16,26 @@ class Api::V1::PackagesController < ApplicationController
     render json: @user_packages, status: :ok
   end
 
+  def awaiting_packages
+    # @awaiting_packages = Package.all.where.not(status: "Picked-Up")
+
+    sql = "SELECT packages.* FROM packages
+    LEFT JOIN services ON packages.id = services.package_id
+    WHERE services.status IS NULL"
+    @awaiting_packages = ActiveRecord::Base.connection.execute(sql)
+    package_array = []
+    @awaiting_packages.each_row do |row|
+      package_array << Package.find(row[0])
+    end
+    render json: package_array, status: :ok
+
+  end
+
+  def user_receiving_packages
+
+    render json: "Hi", status: :ok
+  end
+
   def create
     @package = Package.new(package_params)
     @sender_id = current_user.id
@@ -53,10 +73,13 @@ class Api::V1::PackagesController < ApplicationController
   private
 
   def package_params
-    params.require(:user).permit(:weight, :height, :length, :description, :image, :delivery_date, :sender_id, :receiver_id)
+    params.require(:user).permit(:weight, :height, :status, :length, :description, :image, :delivery_date, :sender_id, :receiver_id)
   end
 
   def find_package
     @package = Package.find(params[:id])
   end
 end
+
+# lsof -PiTCP -sTCP:LISTEN
+# kill -9 4979

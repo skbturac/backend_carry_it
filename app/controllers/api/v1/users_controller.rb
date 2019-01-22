@@ -28,7 +28,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    # byebug
     @user.update(user_params)
     if @user.save
       render json: @user, status: :accepted

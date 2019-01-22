@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources :packages
       delete 'package/delete', to: 'packages#destroy'
       get '/user_packages', to: 'packages#user_packages'
+      get '/awaiting_packages', to: 'packages#awaiting_packages'
 
 
       # resources :package, only: [:index, :create, :show, :update, :destroy] do
@@ -25,6 +26,8 @@ Rails.application.routes.draw do
 
       resources :services
       get '/user_services', to: 'services#user_services'
+      patch '/services_update', to: 'services#update'
+
 
       # resources :service, only: [:index, :create, :show, :update, :destroy] do
       #   post 'service', to: 'services#add_service'
