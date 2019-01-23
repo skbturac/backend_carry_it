@@ -30,6 +30,7 @@ class Api::V1::ServicesController < ApplicationController
   end
 
   def update
+    # byebug
     @service.update(service_params)
     if @service.save
       render json: @service, status: :accepted

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       delete 'package/delete', to: 'packages#destroy'
       get '/user_packages', to: 'packages#user_packages'
       get '/awaiting_packages', to: 'packages#awaiting_packages'
+      get '/user_receiving_packages', to: 'packages#user_receiving_packages'
 
 
       # resources :package, only: [:index, :create, :show, :update, :destroy] do

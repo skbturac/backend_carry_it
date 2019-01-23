@@ -32,8 +32,9 @@ class Api::V1::PackagesController < ApplicationController
   end
 
   def user_receiving_packages
+    @user_receiving_packages = Package.all.where(receiver_id: current_user.id)
+    render json: @user_receiving_packages, status: :ok
 
-    render json: "Hi", status: :ok
   end
 
   def create
